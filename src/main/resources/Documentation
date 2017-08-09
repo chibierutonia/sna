@@ -1,0 +1,30 @@
+Running the application:
+
+1. Build a .war file and run it on local Tomcat application server (http://localhost:8080/)
+2. Run main method in SimpleNetworkingApplication.java
+3. Input your commands on the screen. After the command you will be optionally prompted for additional parameters.
+
+
+
+Commands:
+
+write - Write a post on your personal wall
+read own - Read all your posts in reverse chronological order
+read fol - Read all of your followees posts in reverse chronological order
+follow - Follow a specific user by their username
+unfollow - Stop following a specific user by their username
+logout - Logs you out and lets you login on a different username
+help - Lists all of available commands
+quit - Stops the application
+exit - Stops the application
+
+
+REST services URLs:
+
+http://localhost:8080/rest/user/ - welcome screen
+http://localhost:8080/rest/user/login/{username} - login user from input
+http://localhost:8080/rest/user/write - write message
+http://localhost:8080/rest/user/read_own - read own messages
+http://localhost:8080/rest/user/read_followees - read followees messages
+http://localhost:8080/rest/user/follow/{username} - follow selected user
+http://localhost:8080/rest/user/unfollow/{username} - unfollow selected user

@@ -31,9 +31,9 @@ public class UserService {
     @Path("/")
     public Response getWelcome() {
 
-        String output = "Welcome to SNA";
-
-        return Response.status(200).entity(output).build();
+        String responseMessage = "Welcome to SNA";
+        System.out.println(responseMessage);
+        return returnResponseMessage(responseMessage);
 
     }
 
@@ -63,8 +63,9 @@ public class UserService {
             userDatabase.getUserDatabase().add(currentUser);
             responseMessage = "User created: " + currentUser.getUserName() + "\n" + "Logged in: " + currentUser.getUserName();
         }
+        System.out.println(responseMessage);
 
-        return Response.status(200).entity(responseMessage).build();
+        return returnResponseMessage(responseMessage);
     }
 
     @POST
@@ -75,7 +76,8 @@ public class UserService {
 
         if (messageBody == null || messageBody.isEmpty()) {
             responseMessage = "You cannot post an empty message";
-            return Response.status(200).entity(responseMessage).build();
+            System.out.println(responseMessage);
+            return returnResponseMessage(responseMessage);
         }
         else if (messageBody.length() <= 140) {
             Message message = new Message();
@@ -86,10 +88,12 @@ public class UserService {
             messagesDatabase.getMessageList().add(message);
 
             responseMessage = "Message posted";
-            return Response.status(200).entity(responseMessage).build();
+            System.out.println(responseMessage);
+            return returnResponseMessage(responseMessage);
         } else {
             responseMessage = "Your message if too long, 140 characters max";
-            return Response.status(200).entity(responseMessage).build();
+            System.out.println(responseMessage);
+            return returnResponseMessage(responseMessage);
         }
 
     }
@@ -117,10 +121,12 @@ public class UserService {
             }
 
             responseMessage = sb.toString();
-            return Response.status(200).entity(responseMessage).build();
+            System.out.println(responseMessage);
+            return returnResponseMessage(responseMessage);
         } else {
             responseMessage = "There are no messages on your wall";
-            return Response.status(200).entity(responseMessage).build();
+            System.out.println(responseMessage);
+            return returnResponseMessage(responseMessage);
         }
     }
 
@@ -148,17 +154,20 @@ public class UserService {
                     }
 
                     responseMessage = sb.toString();
-                    return Response.status(200).entity(responseMessage).build();
+                    System.out.println(responseMessage);
+                    return returnResponseMessage(responseMessage);
                 } else {
                     responseMessage = "You don't follow anyone";
-                    return Response.status(200).entity(responseMessage).build();
+                    System.out.println(responseMessage);
+                    return returnResponseMessage(responseMessage);
                 }
             }
         } else {
             responseMessage = "There are no messages on your followees walls";
-            return Response.status(200).entity(responseMessage).build();
+            System.out.println(responseMessage);
+            return returnResponseMessage(responseMessage);
         }
-        return Response.status(200).entity(responseMessage).build();
+        return returnResponseMessage(responseMessage);
     }
 
     @GET
@@ -178,14 +187,17 @@ public class UserService {
             }
             if (!userFound) {
                 responseMessage = "User not found";
-                return Response.status(200).entity(responseMessage).build();
+                System.out.println(responseMessage);
+                return returnResponseMessage(responseMessage);
             } else {
                 responseMessage = "You are now following user " + followedUserName;
-                return Response.status(200).entity(responseMessage).build();
+                System.out.println(responseMessage);
+                return returnResponseMessage(responseMessage);
             }
         } else {
             responseMessage = "You have not entered any username";
-            return Response.status(200).entity(responseMessage).build();
+            System.out.println(responseMessage);
+            return returnResponseMessage(responseMessage);
         }
     }
 
@@ -206,15 +218,26 @@ public class UserService {
             }
             if (!userFound) {
                 responseMessage = "User not found";
-                return Response.status(200).entity(responseMessage).build();
+                System.out.println(responseMessage);
+                return returnResponseMessage(responseMessage);
             } else {
                 responseMessage = "You are no longer following user " + unfollowedUserName;
-                return Response.status(200).entity(responseMessage).build();
+                System.out.println(responseMessage);
+                return returnResponseMessage(responseMessage);
             }
         } else {
             responseMessage = "You have not entered any username";
-            return Response.status(200).entity(responseMessage).build();
+            System.out.println(responseMessage);
+            return returnResponseMessage(responseMessage);
         }
+    }
+
+    private Response returnResponseMessage(String responseMessage) {
+        return Response.ok() //200
+                .entity(responseMessage)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
     }
 
     private String outputMessage(Message message) {

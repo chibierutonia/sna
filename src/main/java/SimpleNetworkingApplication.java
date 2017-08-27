@@ -118,8 +118,9 @@ public class SimpleNetworkingApplication {
             Client client = Client.create();
 
             WebResource webResource = client
-                    .resource("http://localhost:8080/rest/user/" + url + "/" + (isGetParam ? param : ""));
+                    .resource("http://localhost:4444/rest/user/" + url + "/" + (isGetParam ? param : ""));
 
+            System.out.println("Connected to: " + webResource.getURI().toString());
             ClientResponse response;
 
             if (isGetParam) {
